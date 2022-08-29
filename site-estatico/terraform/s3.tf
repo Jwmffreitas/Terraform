@@ -1,7 +1,7 @@
 data "template_file" "s3-public-policy" {
   template = file("policy.json")
   vars = {
-  bucket_name = local.domain
+    bucket_name = local.domain
   }
 }
 
@@ -10,6 +10,7 @@ module "logs" {
   name          = "${local.domain}-logs"
   acl           = "log-delivery-write"
   force_destroy = !local.has_domain
+  tags          = local.common_tags
 }
 
 module "website" {
@@ -17,6 +18,7 @@ module "website" {
   name          = local.domain
   policy        = data.template_file.s3-public-policy.rendered
   force_destroy = !local.has_domain
+  tags          = local.common_tags
 
   versioning = {
     enabled = true
@@ -39,6 +41,7 @@ module "redirect" {
   name          = "www.${local.domain}"
   acl           = "public-read"
   force_destroy = !local.has_domain
+  tags          = local.common_tags
 
   website = {
     redirect_all_requests_to = local.has_domain ? var.domain : module.website.website
