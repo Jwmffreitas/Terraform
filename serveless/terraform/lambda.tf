@@ -54,8 +54,8 @@ resource "aws_lambda_permission" "s3" {
 
 data "archive_file" "dynamo" {
   type        = "zip"
-  source_file = "${local.lambdas_path}/s3/index.js"
-  output_path = "files/s3-artefact.zip"
+  source_file = "${local.lambdas_path}/dynamo/index.js"
+  output_path = "files/dynamo-artefact.zip"
 }
 
 resource "aws_lambda_function" "dynamo" {
