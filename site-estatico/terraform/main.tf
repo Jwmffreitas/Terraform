@@ -25,6 +25,12 @@ provider "aws" {
   profile = var.aws_profile
 }
 
+provider "aws" {
+  region  = "us-west-2"
+  profile = var.aws_profile
+  alias   = "us-west-2"
+}
+
 resource "random_pet" "website" {
   length = 5
 }
